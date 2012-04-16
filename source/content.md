@@ -348,6 +348,7 @@ Just init i18n with the according options (you shouldn't use this option in prod
 
 - added function to grap current language from template (i18n.lng())
 - merged [pull request #15](https://github.com/jamuhl/i18next-node/pull/15) for express.js v3 support
+- updated client
 
 ### v1.2.3 & v1.2.4
 
