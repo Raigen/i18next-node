@@ -125,6 +125,7 @@ or grab the current language
         , resGetPath: 'myFolder/__lng__/__ns__.json' // defaults to 'locales/__lng__/__ns__.json' where ns = translation (default)
         , resSetPath: 'myFolder/__lng__/__ns__.json' // defaults to 'locales/__lng__/__ns__.json' where ns = translation (default)
         , resStore: {...}                            // if you don't want your resources to be loaded you can provide the resources
+        , debug: true                                // log out errors and infos
     });
 
 
@@ -134,7 +135,8 @@ To serve the clientside script and needed routes for resources and missing keys:
 
     i18next.serveClientScript(app)        // grab i18next.js in browser
            .serveDynamicResources(app)    // route which returns all resources in on response
-           .serveMissingKeyRoute(app);    // route to send missing keys
+           .serveMissingKeyRoute(app)     // route to send missing keys
+           .serveChangeKeyRoute(app);     // route to post value changes
 
 to support the dynamic route in client add options
 
@@ -336,6 +338,15 @@ Just init i18n with the according options (you shouldn't use this option in prod
         resSetPath: 'myFolder/__lng__/__ns__.json'
     });
 
+## change out the backend implementation
+
+As default i18next loads it's resources from filesystem. You could easily change out this behaviour by setting a different backend before you init i18next:
+
+    i18next.backend(myBackend);
+
+    i18next.init(myOptions);
+
+For implementation details have a look at the [filesystem implementation](https://github.com/jamuhl/i18next-node/blob/master/lib/filesync.js).
 
 ## Inspiration
 
@@ -343,6 +354,12 @@ Just init i18n with the according options (you shouldn't use this option in prod
 - [i18n-node](https://github.com/mashpie/i18n-node)
 
 ## Release Notes
+
+### v1.3.1
+
+- debugging / logging
+- updated client
+- easier override for backend implementation
 
 ### v1.2.5
 
