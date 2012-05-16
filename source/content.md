@@ -338,6 +338,7 @@ Just init i18n with the according options (you shouldn't use this option in prod
         resSetPath: 'myFolder/__lng__/__ns__.json'
     });
 
+<a name="backend"></a>
 ## change out the backend implementation
 
 As default i18next loads it's resources from filesystem. You could easily change out this behaviour by setting a different backend before you init i18next:
@@ -347,6 +348,74 @@ As default i18next loads it's resources from filesystem. You could easily change
     i18next.init(myOptions);
 
 For implementation details have a look at the [filesystem implementation](https://github.com/jamuhl/i18next-node/blob/master/lib/filesync.js).
+
+### Backend for mongoDb
+
+You can use the provided mongoDb backend - grab it via npm
+    
+    npm install i18next.mongoDb
+
+In your code add the backend:
+
+    var i18nextMongoSync = require('i18next.mongoDb')
+
+    i18nMongoSync.connect({
+        host: 'localhost',
+        port: 27017,
+        dbName: 'i18next'
+        // resCollectionName: 'resources'
+    }, function() {
+        i18n.backend(i18nMongoSync);
+
+        i18n.init();
+    });
+
+### Backend for redis
+
+You can use the provided redis backend - grab it via npm
+    
+    npm install i18next.redis
+
+In your code add the backend:
+
+    var i18nextRedisSync = require('i18next.redis')
+
+    i18nextRedisSync.connect({
+        host: 'localhost',
+        port: 6379,
+        database: 0
+        // resCollectionName: 'resources'
+    }, function() {
+        i18n.backend(i18nextRedisSync);
+
+        i18n.init();
+    });
+
+### Additional backend functions:
+
+    // loading loadResourceSet(lng, ns, cb)
+    loadResourceSet('en-US', 'myNamespace', function(err, resourceSet) {
+        // resources
+        var res = resourcesSet.resources;
+
+        // language
+        var lng = resourcesSet.lng;
+
+        // namespace
+        var ns = resourcesSet.namespace;
+    }); 
+
+    // saving saveResourceSet(lng, ns, resouceSet, cb)
+    var resourceSet = {
+        resources: { ... }
+
+        // optional will be added anyway ;)
+        lng: 'en-US',
+        namespace: 'myNamespace'
+    };
+    saveResourceSet('en-US', 'myNamespace', resourceSet, function(err) {
+        // handle err
+    });
 
 ## Inspiration
 
