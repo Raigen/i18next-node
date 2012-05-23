@@ -424,6 +424,11 @@ In your code add the backend:
 
 ## Release Notes
 
+### v1.3.3
+
+- fixed response type of post routes to json
+- updated client
+
 ### v1.3.1
 
 - debugging / logging
